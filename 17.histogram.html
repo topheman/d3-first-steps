@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>17 - histogram</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="./styles/main.css">
+    <script type="text/javascript" src="./scripts/vendor/d3/d3.js"></script>
+    <style>
+      svg {
+        font-family: Arial, Helvetica, sans-serif
+      }
+      .bar text.number{
+        text-anchor:middle;
+        fill:white;
+      }
+      .bar rect{
+        stroke: gray;
+        stroke-width:1;
+        fill:blue;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="back-home"><a href="./index.html">Back to index</a></p>
+    <p>Based on 
+    <ul>
+      <li><a href="https://www.youtube.com/watch?v=cu-I2um024k&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p&index=17">https://www.youtube.com/watch?v=cu-I2um024k&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p&index=17</a></li>
+      <li><a href="https://www.youtube.com/watch?v=0CZ7-f9wXiM&index=18&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p">https://www.youtube.com/watch?v=0CZ7-f9wXiM&index=18&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p</a></li>
+    </ul>
+    </p>
+    <script>
+      var width = 500;
+      var height = 500;
+      var padding = 50;
+      var marginLeft = 10;
+
+      var data = [23, 45, 54, 32, 34, 23, 12, 43, 32, 32, 43, 54, 34, 23, 38, 39, 29];
+
+      var canvas = d3.select('body').append('svg')
+              .attr('width', width + marginLeft)
+              .attr('height', height + padding)
+              .append('g')
+              .attr('transform', 'translate(' + marginLeft + ',0)');
+
+      var histogram = d3.layout.histogram()
+              .bins(8)
+
+      var histograms = histogram(data);
+
+      var yScale = d3.scale.linear()
+              .domain([0, d3.max(histograms.map(function(item) {
+                  return item.length;
+                }))])
+              .range([0, height]);
+
+      var xScale = d3.scale.linear()
+              .domain([0, d3.max(data)])
+              .range([0, width]);
+
+      var xAxis = d3.svg.axis()
+              .scale(xScale)
+              .orient('bottom')
+
+      var axisGroup = canvas.append('g')
+              .attr('class', 'x-axis')
+              .attr('transform', 'translate(0,' + height + ')')
+              .call(xAxis);
+
+      var bars = canvas.selectAll('.bar')
+              .data(histograms)
+              .enter()
+              .append('g')
+              .attr('class', 'bar');
+
+      bars.append('rect')
+              .attr('x', function(d) {
+                return xScale(d.x);
+              })
+              .attr('y', function(d) {
+                return height - yScale(d.y)
+              })
+              .attr('width', function(d) {
+                return xScale(d.dx);
+              })
+              .attr('height', function(d) {
+                return yScale(d.y);
+              })
+              
+      bars.append('text')
+              .attr('x', function(d) {
+                return xScale(d.x);
+              })
+              .attr('y', function(d) {
+                return height - yScale(d.y)
+              })
+              .attr('class', function(d) {
+                return d.y > 0 ? 'number' : 'number-none';
+              })
+              .attr('dx', function(d) {
+                return xScale(d.dx) / 2
+              })
+              .attr('dy', '20px')
+              .text(function(d) {
+                return d.y > 0 ? d.y : "";
+              })
+
+    </script>
+  </body>
+</html>

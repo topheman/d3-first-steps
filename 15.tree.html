@@ -31,6 +31,7 @@
     </style>
   </head>
   <body>
+    <p class="back-home"><a href="./index.html">Back to index</a></p>
     <p>Based on <a href="https://www.youtube.com/watch?v=iZ6MSHA4FMU&index=15&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p">https://www.youtube.com/watch?v=iZ6MSHA4FMU&index=15&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p</a></p>
     <script>
       var width = 800;
@@ -95,9 +96,8 @@
               .data(nodes)
               .enter()
               .append('g')
-              .attr('class', 'node')
               .attr('class', function(d) {
-                return 'depth-' + d.depth;
+                return 'node depth-' + d.depth;
               })
 //              .attr('transform', function(d) {
 //                return 'translate(' + d.x + ',' + d.y + ')'
