@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>15 - tree</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="./styles/main.css">
+    <script type="text/javascript" src="./scripts/vendor/d3/d3.js"></script>
+    <style>
+      svg {
+        font-family: Arial, Helvetica, sans-serif
+      }
+      g.depth-0 circle {
+        fill: darkred;
+      }
+      g.depth-0 text {
+        font-weight: bold;
+        font-size: 150%;
+      }
+      g.depth-1 circle {
+        fill: lightcoral;
+      }
+      g.depth-1 text {
+        font-style: italic;
+        font-size: 120%;
+      }
+      g.depth-2 circle {
+        fill: pink;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Based on <a href="https://www.youtube.com/watch?v=iZ6MSHA4FMU&index=15&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p">https://www.youtube.com/watch?v=iZ6MSHA4FMU&index=15&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p</a></p>
+    <script>
+      var width = 800;
+      var height = 500;
+
+      var data = {
+        "name": "root",
+        "children": [
+          {
+            "name": "Colors",
+            "children": [
+              {"name": "red"},
+              {"name": "blue"},
+              {"name": "orange"},
+              {"name": "white"},
+              {"name": "yellow"}
+            ]
+          },
+          {
+            "name": "Fruits",
+            "children": [
+              {"name": "kiwi"},
+              {"name": "grape"},
+              {"name": "orange"},
+              {"name": "apple"},
+              {"name": "grape"}
+            ]
+          },
+          {
+            "name": "Beatles",
+            "children": [
+              {"name": "John"},
+              {"name": "Paul"},
+              {"name": "Georges"},
+              {"name": "Ringo"}
+            ]
+          }
+        ]
+      };
+
+      var tree = d3.layout.tree()
+              .size([400, 600]);
+
+      var nodes = tree.nodes(data);
+      var links = tree.links(nodes);
+
+      var diagonal = d3.svg.diagonal()
+              .projection(function(d) {
+                console.log(d);
+                return [d.y, d.x];
+              })//to flip vertical to horizontal
+
+      var canvas = d3.select('body')
+              .append('svg')
+              .attr('width', width)
+              .attr('height', height);
+
+      var group = canvas.append('g')
+              .attr('transform', 'translate(10,10)');
+
+      var node = group.selectAll('.node')
+              .data(nodes)
+              .enter()
+              .append('g')
+              .attr('class', 'node')
+              .attr('class', function(d) {
+                return 'depth-' + d.depth;
+              })
+//              .attr('transform', function(d) {
+//                return 'translate(' + d.x + ',' + d.y + ')'
+//              })
+              //flip vertical to horizontal
+              .attr('transform', function(d) {
+                return 'translate(' + d.y + ',' + d.x + ')'
+              });
+
+      node.append('circle')
+              .attr('r', 8);
+
+      node.append('text')
+              .text(function(d) {
+                return d.name;
+              })
+              .attr('transform', function(d) {
+                var x = -3, y = -12;
+                if (d.depth === 2) {
+                  x = 12;
+                  y = 4;
+                }
+                return 'translate(' + x + ',' + y + ')';
+              });
+
+      group.selectAll('.link')
+              .data(links)
+              .enter()
+              .append('path')
+              .attr('class', 'link')
+              .attr('stroke', 'gray')
+              .attr('fill', 'none')
+              .attr('d', diagonal);
+
+
+    </script>
+  </body>
+</html>

@@ -15,38 +15,40 @@
 //      var data = [20,30,60];
       var width = 500;
       var height = 500;
-      
+
       var canvas = d3.select('body')
               .append('svg')
-              .attr('width',width)
-              .attr('height',height);
-      
+              .attr('width', width)
+              .attr('height', height);
+
       circle1 = canvas.append('circle')
-              .attr('cx',50)
-              .attr('cy',0)
-              .attr('r',20);
-      
+              .attr('cx', 50)
+              .attr('cy', 0)
+              .attr('r', 20);
+
       circle2 = canvas.append('circle')
-              .attr('cx',50)
-              .attr('cy',50)
-              .attr('r',20);
-      
+              .attr('cx', 50)
+              .attr('cy', 50)
+              .attr('r', 20);
+
       var circleSelection = canvas.selectAll('circle')
               .data(data)
-              .attr('fill','green');
-      
+              .attr('fill', 'green');
+
       //called if data.length > number of circles previously created
       circleSelection.enter()
               .append('circle')
-                .attr('cx',50)
-                .attr('cy',function(d,i){return i*50})
-                .attr('r',20)
-                .attr('fill','red');
-      
+              .attr('cx', 50)
+              .attr('cy', function(d, i) {
+                return i * 50
+              })
+              .attr('r', 20)
+              .attr('fill', 'red');
+
       //called if data.length < number of circles previously created
       circleSelection.exit()
-                .attr('fill','blue');
-      
+              .attr('fill', 'blue');
+
     </script>
   </body>
 </html>

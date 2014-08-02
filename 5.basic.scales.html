@@ -11,46 +11,46 @@
   <body>
     <p>Based on <a href="https://www.youtube.com/watch?v=iMYkVLWc3y0&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p&index=5">https://www.youtube.com/watch?v=iMYkVLWc3y0&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p&index=5</a></p>
     <script>
-      var data = [20 , 40, 60, 80, 90];
+      var data = [20, 40, 60, 80, 90];
       var width = 500;
       var height = 500;
-      
+
       var heightScale = d3.scale.linear()
-              .domain([0,d3.max(data)])
-              .range([0,height]);
-      
+              .domain([0, d3.max(data)])
+              .range([0, height]);
+
       var widthScale = d3.scale.linear()
-              .domain([0,data.length])
-              .range([0,width]);
-      
+              .domain([0, data.length])
+              .range([0, width]);
+
       var colorScale = d3.scale.linear()
-              .domain([0,Math.max.apply(Math, data)])
-              .range(["red","blue"]);
-      
+              .domain([0, d3.max(data)])
+              .range(["red", "blue"]);
+
       var canvas = d3.select('body')
               .append('svg')
-              .attr('width',width)
-              .attr('height',height);
-      
+              .attr('width', width)
+              .attr('height', height);
+
       var bars = canvas.selectAll('rect')
               .data(data)
               .enter()
-                .append('rect')
-                .attr('width',widthScale(1))
-                .attr('height',10)
-                .attr('fill',function(d){
-                  return colorScale(d);
-                })
-                .attr('x',function(d,i){
-                  return widthScale(i);
-                })
-                .attr('y',function(d){
-                  return height-heightScale(d);
-                })
-                .attr('height',function(d){
-                  return heightScale(d);
-                })
-                .attr('stroke','black');
+              .append('rect')
+              .attr('width', widthScale(1))
+              .attr('height', 10)
+              .attr('fill', function(d) {
+                return colorScale(d);
+              })
+              .attr('x', function(d, i) {
+                return widthScale(i);
+              })
+              .attr('y', function(d) {
+                return height - heightScale(d);
+              })
+              .attr('height', function(d) {
+                return heightScale(d);
+              })
+              .attr('stroke', 'black');
     </script>
   </body>
 </html>

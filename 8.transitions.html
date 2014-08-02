@@ -18,38 +18,40 @@
 //      var data = [20,30,60];
       var width = 500;
       var height = 500;
-      
+
       var canvas = d3.select('body')
               .append('svg')
-              .attr('width',width)
-              .attr('height',height);
-      
+              .attr('width', width)
+              .attr('height', height);
+
       circle = canvas.append('circle')
-              .attr('cx',50)
-              .attr('cy',50)
-              .attr('r',20);
-      
-      transition1 = function(){
+              .attr('cx', 50)
+              .attr('cy', 50)
+              .attr('r', 20);
+
+      transition1 = function() {
         buttonTransition1.disabled = true;
         circle.transition()
                 .duration(1200)
-                .attr('fill','red')
-                .attr('r',40)
-                .attr('cx',200)
-                .attr('cy',200)
+                .attr('fill', 'red')
+                .attr('r', 40)
+                .attr('cx', 200)
+                .attr('cy', 200)
                 .transition()
-                  .each('end',function(){ buttonTransition1.disabled = false; })
-                  .attr('cx',50)
-                  .attr('cy',50)
-                  .attr('r',20)
-                  .attr('fill','black');
+                .each('end', function() {
+                  buttonTransition1.disabled = false;
+                })
+                .attr('cx', 50)
+                .attr('cy', 50)
+                .attr('r', 20)
+                .attr('fill', 'black');
       };
-      
+
       var buttonTransition1 = document.getElementById('transition-1')
-      buttonTransition1.addEventListener('click',function(){
+      buttonTransition1.addEventListener('click', function() {
         transition1();
-      },false);
-      
+      }, false);
+
     </script>
   </body>
 </html>
