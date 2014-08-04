@@ -1,0 +1,12 @@
+<h4>Home</h4>
+<emulate-web-socket data-data="data"></emulate-web-socket>
+<p>This is a micro angular application, embedded in that site to test d3 directive in an angular environment.</p>
+<p>Total count : {{data.count}}</p>
+<ul>
+  <li ng-repeat="channel in data.channels">
+    {{data.channelsDescription[$index].title}} - {{channel.count}}
+    <ul>
+      <li ng-repeat="keyword in channel.keywords">{{keyword.name}} - {{keyword.count}}</li>
+    </ul>
+  </li>
+</ul>
