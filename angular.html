@@ -14,14 +14,18 @@
     <div ng-include="'views/header.html'" ng-controller="HeaderCtrl"></div>
     <div ng-view=""></div>
     
+    <script src="./scripts/vendor/d3/d3.min.js"></script>
+    <script src="./scripts/vendor/jquery.min.js"></script>
     <script src="./scripts/vendor/angular.js"></script>
     <script src="./scripts/vendor/angular-animate.js"></script>
     <script src="./scripts/vendor/angular-touch.js"></script>
     <script src="./scripts/vendor/angular-route.js"></script>
     
     <script src="./scripts/app.js"></script>
+    <script src="./scripts/services/d3helpers.js"></script>
     <script src="./scripts/services/persistance.js"></script>
     <script src="./scripts/directives/emulateWebSocket.js"></script>
+    <script src="./scripts/directives/pieChannel.js"></script>
     <script src="./scripts/controllers/header.js"></script>
     <script src="./scripts/controllers/pie.js"></script>
     <script src="./scripts/controllers/main.js"></script>
