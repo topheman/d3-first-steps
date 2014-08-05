@@ -1,6 +1,8 @@
 angular.module('d3AngularFirstSteps')
         .service('persistance', function($q, $http, $timeout) {
 
+          var isInit = false;
+
           var _data = {
             count: 0,
             channels: {},
@@ -15,21 +17,27 @@ angular.module('d3AngularFirstSteps')
 
             var deferred = $q.defer();
             
-            $http({
-              method: 'GET',
-              url: './data/data.persistance.json',
-              cache: true
-            })
-                    .success(function(data) {
-                      _data.count = data.count;
-                      _data.channels = data.channels;
-                      _data.keywords = data.keywords;
-                      _data.channelsDescription = data.channelsDescription;
-                      deferred.resolve(_data);
-                    })
-                    .error(function() {
-                      deferred.reject();
-                    });
+            if(isInit === true){
+              deferred.resolve(isInit);
+            }
+            else{
+              $http({
+                method: 'GET',
+                url: './data/data.persistance.json',
+                cache: true
+              })
+                      .success(function(data) {
+                        _data.count = data.count;
+                        _data.channels = data.channels;
+                        _data.keywords = data.keywords;
+                        _data.channelsDescription = data.channelsDescription;
+                        isInit = true;
+                        deferred.resolve(isInit);
+                      })
+                      .error(function() {
+                        deferred.reject(isInit);
+                      });
+            }
             return deferred.promise;
             
           };

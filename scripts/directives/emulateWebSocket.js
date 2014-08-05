@@ -10,10 +10,11 @@ angular.module('d3AngularFirstSteps')
             },
             link: function(scope, element, attr){
               scope.toggle = function(){
+                console.log('toggle');
                 if(scope.data.running){
                   persistance.stop();
                 }
-                else{
+                else if (!scope.data.running){
                   persistance.start();
                 }
               };

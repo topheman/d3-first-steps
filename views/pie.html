@@ -3,4 +3,4 @@
 <ul>
   <li ng-repeat="channel in channelsDescription" ng-class="routeParams.channel == $index ? 'active' : ''"><a ng-href="#/pie/{{$index}}">{{channel.title}}</a></li>
 </ul>
-<pie-channel data-channel="channel"></pie-channel>
+<pie-channel data-channel="data.channels[routeParams.channel]"></pie-channel>

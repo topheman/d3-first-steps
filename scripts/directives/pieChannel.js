@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('d3AngularFirstSteps')
-        .directive('pieChannel', function($window) {
+        .directive('pieChannel', function($window,$compile) {
           return {
             templateUrl: './views/templates/pieChannel.html',
             restrict: 'E',
@@ -20,8 +20,7 @@ angular.module('d3AngularFirstSteps')
                       .attr('width', width)
                       .attr('height', height);
 
-              var colorScale = d3.scale.category10()
-//                      .range(['blue', 'red', 'yellow', 'orange', 'green', 'purple']);
+              var colorScale = d3.scale.category10();
 
               var group = svg.append('g')
                       .attr('class', 'pie')
@@ -37,37 +36,51 @@ angular.module('d3AngularFirstSteps')
                       });
 
               scope.render = function(channelKeywords) {
-                
+                console.log('render');
                 var d3Data = [];
-                console.log(channelKeywords);
                 for(var keyword in channelKeywords){
                   d3Data.push({name : keyword, count : channelKeywords[keyword].count});
                 }
-                console.log(d3Data);
-
+                
+//                group.selectAll('.arc text').remove();
+                
                 var arcs = group.selectAll('.arc')
-                        .data(pie(d3Data))
-                        .enter()
+                        .data(pie(d3Data));
+                
+                arcs.exit().remove();
+                
+                var g = arcs.enter()
                         .append('g')
-                        .attr('class', 'arc');
-
-                arcs.append('path')
+                        .attr('class', 'arc')
+                        .each(function(d){
+                          console.log('1>g.each');
+                          d3.select(this).append('path');
+                          d3.select(this).append('text');
+                        });
+                  
+//                arcs.each(function(d){
+//                          console.log('1>g.each');
+//                          d3.select(this).append('path');
+//                          d3.select(this).append('text');
+//                        });
+                
+                arcs.selectAll('g path')
                         .attr('d', arc)
                         .attr('fill', function(d) {
-                          return colorScale(d.data.count);
+                          console.log('2>g.each - update color');
+                          return colorScale(d.data.name);
                         });
-
-                arcs.append('text')
+                arcs.selectAll('g text')
                         .attr('transform', function(d) {
-                          return 'translate(' + arc.centroid(d) + ')'
+                          console.log('2>g.each - update text');
+                          return 'translate(' + arc.centroid(d) + ')';
                         })
                         .text(function(d) {
-                          return d.data.name + '(' + d.data.count + ')'
+                          return d.data.name + '(' + d.data.count + ')';
                         });
               };
 
               scope.$watch('channel.keywords', function() {
-                console.log('render');
                 scope.render(scope.channel.keywords);
               }, true);
 
