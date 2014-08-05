@@ -49,13 +49,17 @@ angular.module('d3AngularFirstSteps')
             return _data;
           };
           
+          var random = function(num){
+            return Math.random() > 0.5 ? num : 0;
+          };
+          
           var updateData = function(){
             if(_data.running === true){
               _data.count+=2;
               for(var channelId in _data.channels){
                 _data.channels[channelId].count+=2;
                 for(var keyword in _data.channels[channelId].keywords){
-                  _data.channels[channelId].keywords[keyword].count++;
+                  _data.channels[channelId].keywords[keyword].count+=random(1);
                 }
               }
               return $timeout(updateData,800);

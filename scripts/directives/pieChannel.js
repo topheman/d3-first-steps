@@ -1,34 +1,50 @@
 'use strict';
 
 angular.module('d3AngularFirstSteps')
-        .directive('pieChannel', function($window,$compile) {
+        .directive('pieChannel', function($window) {
           return {
-            templateUrl: './views/templates/pieChannel.html',
+            template: '<style>pie-channel .arc path:hover {opacity:0.8;}</style>',
             restrict: 'E',
             scope: {
               channel: '='
             },
             link: function(scope, element, attr) {
 
-              var padding = {top: 20, right: 20, bottom: 20, left: 20};
-              var width = typeof attr.width !== 'undefined' ? parseInt(attr.width) : 500;
-              var height = typeof attr.height !== 'undefined' ? parseInt(attr.height) : 500;
-              var radius = 200;
-
               var d3 = $window.d3;
-              var svg = d3.select(element[0]).append('svg')
-                      .attr('width', width)
-                      .attr('height', height);
 
-              var colorScale = d3.scale.category10();
+              var pieChannel = {
+                arcGroup: null,
+                labelGroup: null,
+                radius: typeof attr.radius !== 'undefined' ? parseInt(attr.radius) : 200,
+                innerRadius: typeof attr.innerRadius !== 'undefined' ? parseInt(attr.innerRadius) : 50,
+                duration: 300,
+                delay: 300
+              };
 
-              var group = svg.append('g')
-                      .attr('class', 'pie')
-                      .attr('transform', 'translate(250,250)');
+              var color = d3.scale.category10();
+
+              var init = function() {
+
+                var width = pieChannel.radius * 2.2;
+                var height = pieChannel.radius * 2.2;
+                var transform = "translate(" + width / 2 + "," + height / 2 + ")";
+
+                var svg = d3.select(element[0]).append('svg')
+                        .attr('width', width)
+                        .attr('height', height);
+
+                pieChannel.arcGroup = svg.append("g")
+                        .attr("class", "arc")
+                        .attr("transform", transform);
+
+                pieChannel.labelGroup = svg.append("g")
+                        .attr("class", "label-group")
+                        .attr("transform", transform);
+              };
 
               var arc = d3.svg.arc()
-                      .innerRadius(50)
-                      .outerRadius(radius);
+                      .innerRadius(pieChannel.innerRadius)
+                      .outerRadius(pieChannel.radius);
 
               var pie = d3.layout.pie()
                       .value(function(d) {
@@ -37,48 +53,59 @@ angular.module('d3AngularFirstSteps')
 
               scope.render = function(channelKeywords) {
                 console.log('render');
+
+                //preprocess data to d3Data
                 var d3Data = [];
-                for(var keyword in channelKeywords){
-                  d3Data.push({name : keyword, count : channelKeywords[keyword].count});
+                for (var keyword in channelKeywords) {
+                  d3Data.push({name: keyword, count: channelKeywords[keyword].count});
                 }
-                
-//                group.selectAll('.arc text').remove();
-                
-                var arcs = group.selectAll('.arc')
-                        .data(pie(d3Data));
-                
-                arcs.exit().remove();
-                
-                var g = arcs.enter()
-                        .append('g')
-                        .attr('class', 'arc')
-                        .each(function(d){
-                          console.log('1>g.each');
-                          d3.select(this).append('path');
-                          d3.select(this).append('text');
-                        });
-                  
-//                arcs.each(function(d){
-//                          console.log('1>g.each');
-//                          d3.select(this).append('path');
-//                          d3.select(this).append('text');
-//                        });
-                
-                arcs.selectAll('g path')
-                        .attr('d', arc)
-                        .attr('fill', function(d) {
-                          console.log('2>g.each - update color');
-                          return colorScale(d.data.name);
-                        });
-                arcs.selectAll('g text')
-                        .attr('transform', function(d) {
-                          console.log('2>g.each - update text');
-                          return 'translate(' + arc.centroid(d) + ')';
+
+                //paths
+                var paths = pieChannel.arcGroup.selectAll("path").data(pie(d3Data));
+
+                paths.enter().append("path")
+                        .attr("stroke", "white")
+                        .attr("stroke-width", 0.5)
+                        .attr("fill", "#ffffff");
+
+                paths.transition()
+                        .attr("fill", function(d, i) {
+                          return color(i);
                         })
-                        .text(function(d) {
-                          return d.data.name + '(' + d.data.count + ')';
+                        .duration(pieChannel.duration)
+                        .delay(pieChannel.delay)
+                        .attr("d", arc);
+
+                paths.exit()
+                        .transition()
+                        .duration(pieChannel.duration)
+                        .attr("fill", "#ffffff")
+                        .remove();
+
+                //labels
+                var labels = pieChannel.labelGroup.selectAll('text.value').data(pie(d3Data));
+
+                labels.enter().append("text")
+                        .attr("class", "value");
+
+                labels.transition()
+                        .duration(pieChannel.duration)
+                        .delay(pieChannel.delay)
+                        .attr("transform", function(d) {
+                          d.innerRadius = pieChannel.innerRadius;
+                          d.outerRadius = pieChannel.radius;
+                          return "translate(" + arc.centroid(d) + ")";
+                        })
+                        .attr("text-anchor", "middle")
+                        .text(function(d, i) {
+                          return d.data.name+'('+d.data.count+')';
                         });
+
+                labels.exit().remove();
+
               };
+
+              init();
 
               scope.$watch('channel.keywords', function() {
                 scope.render(scope.channel.keywords);
