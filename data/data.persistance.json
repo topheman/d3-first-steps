@@ -1,0 +1,124 @@
+{
+  "count": 175,
+  "channels": {
+    "0": {
+      "keywords": {
+        "white": {
+          "count": 51,
+          "name": "white"
+        },
+        "yellow": {
+          "count": 7,
+          "name": "yellow"
+        },
+        "blue": {
+          "count": 17,
+          "name": "blue"
+        },
+        "green": {
+          "count": 19,
+          "name": "green"
+        },
+        "orange": {
+          "count": 7,
+          "name": "orange"
+        }
+      },
+      "count": 98
+    },
+    "1": {
+      "keywords": {
+        "apple": {
+          "count": 23,
+          "name": "apple"
+        },
+        "orange": {
+          "count": 7,
+          "name": "orange"
+        },
+        "kiwi": {
+          "count": 2,
+          "name": "kiwi"
+        },
+        "coconut": {
+          "count": 3,
+          "name": "coconut"
+        },
+        "lemon": {
+          "count": 2,
+          "name": "lemon"
+        }
+      },
+      "count": 37
+    },
+    "2": {
+      "keywords": {
+        "luke": {
+          "count": 26,
+          "name": "luke"
+        },
+        "han": {
+          "count": 28,
+          "name": "han"
+        },
+        "leia": {
+          "count": 1,
+          "name": "leia"
+        }
+      },
+      "count": 55
+    }
+  },
+  "keywords": {
+    "white": {
+      "count": 50
+    },
+    "yellow": {
+      "count": 7
+    },
+    "apple": {
+      "count": 23
+    },
+    "luke": {
+      "count": 26
+    },
+    "blue": {
+      "count": 17
+    },
+    "han": {
+      "count": 28
+    },
+    "green": {
+      "count": 19
+    },
+    "orange": {
+      "count": 7
+    },
+    "kiwi": {
+      "count": 2
+    },
+    "coconut": {
+      "count": 3
+    },
+    "lemon": {
+      "count": 2
+    },
+    "leia": {
+      "count": 1
+    }
+  },
+  "channelsDescription": [{
+      "title": "Colors",
+      "description": "",
+      "track": ["blue", "white", "yellow", "green", "orange"]
+    }, {
+      "title": "Fruits",
+      "description": "",
+      "track": ["kiwi", "orange", "apple", "lemon", "coconut"]
+    },
+    {
+      "title": "Star Wars",
+      "description": "",
+      "track": ["Luke", "Leia", "Han", "Yoda"]
+    }]
+}

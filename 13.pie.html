@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>13 - pie</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="./styles/main.css">
+    <script type="text/javascript" src="./scripts/vendor/d3/d3.js"></script>
+    <style>
+      svg .arc text{
+        font-family: Arial, "Sans-serif";
+        text-anchor: middle;
+      }
+      svg .arc path{
+        opacity: 0.5;
+        stroke: gray;
+        stroke-width:1;
+      }
+      svg .arc:hover path{
+        opacity: 0.7;
+      }
+    </style>
+  </head>
+  <body>
+    <span id="forkongithub"><a href="https://github.com/topheman/d3-first-steps">Fork me on GitHub</a></span>
+    <h2>d3 first steps</h2>
+    <p class="back-home"><a href="./">Back to index</a></p>
+    <p>Based on <a href="https://www.youtube.com/watch?v=kMCnzUE07QA&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p&index=13">https://www.youtube.com/watch?v=kMCnzUE07QA&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p&index=13</a></p>
+    <script>
+      var width = 500;
+      var height = 500;
+
+      var data = [
+        {name: 'kiwi', count: 23},
+        {name: 'orange', count: 45},
+        {name: 'lemon', count: 98},
+        {name: 'apple', count: 20},
+        {name: 'grape', count: 65},
+        {name: 'banana', count: 76}
+      ];
+
+      var r = 200;
+
+      var colorScale = d3.scale.ordinal()
+              .range(['blue','red','yellow','orange','green','purple']);
+
+
+      var canvas = d3.select('body')
+              .append('svg')
+              .attr('width', width)
+              .attr('height', height);
+
+      var group = canvas.append('g')
+              .attr('transform', 'translate(250,250)');
+
+      var arc = d3.svg.arc()
+              .innerRadius(50)
+              .outerRadius(r);
+
+      var pie = d3.layout.pie()
+              .value(function(d) {
+                return d.count;
+              });
+
+      var arcs = group.selectAll('.arc')
+              .data(pie(data))
+              .enter()
+              .append('g')
+              .attr('class', 'arc');
+
+      arcs.append('path')
+              .attr('d', arc)
+              .attr('fill', function(d){return colorScale(d.data.count);});
+      
+      arcs.append('text')
+              .attr('transform',function(d){return 'translate('+arc.centroid(d)+')'})
+              .text(function(d){return d.data.name + '('+d.data.count+')'})
+
+    </script>
+  </body>
+</html>

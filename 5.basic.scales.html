@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>5 - Basic scales</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="./styles/main.css">
+    <script type="text/javascript" src="./scripts/vendor/d3/d3.js"></script>
+  </head>
+  <body>
+    <span id="forkongithub"><a href="https://github.com/topheman/d3-first-steps">Fork me on GitHub</a></span>
+    <h2>d3 first steps</h2>
+    <p class="back-home"><a href="./">Back to index</a></p>
+    <p>Based on <a href="https://www.youtube.com/watch?v=iMYkVLWc3y0&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p&index=5">https://www.youtube.com/watch?v=iMYkVLWc3y0&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p&index=5</a></p>
+    <script>
+      var data = [20, 40, 60, 80, 90];
+      var width = 500;
+      var height = 500;
+
+      var heightScale = d3.scale.linear()
+              .domain([0, d3.max(data)])
+              .range([0, height]);
+
+      var widthScale = d3.scale.linear()
+              .domain([0, data.length])
+              .range([0, width]);
+
+      var colorScale = d3.scale.linear()
+              .domain([0, d3.max(data)])
+              .range(["red", "blue"]);
+
+      var canvas = d3.select('body')
+              .append('svg')
+              .attr('width', width)
+              .attr('height', height);
+
+      var bars = canvas.selectAll('rect')
+              .data(data)
+              .enter()
+              .append('rect')
+              .attr('width', widthScale(1))
+              .attr('height', 10)
+              .attr('fill', function(d) {
+                return colorScale(d);
+              })
+              .attr('x', function(d, i) {
+                return widthScale(i);
+              })
+              .attr('y', function(d) {
+                return height - heightScale(d);
+              })
+              .attr('height', function(d) {
+                return heightScale(d);
+              })
+              .attr('stroke', 'black');
+    </script>
+  </body>
+</html>

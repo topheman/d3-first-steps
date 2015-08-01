@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>3 - Basic svg shapes</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="./styles/main.css">
+    <script type="text/javascript" src="./scripts/vendor/d3/d3.js"></script>
+  </head>
+  <body>
+    <span id="forkongithub"><a href="https://github.com/topheman/d3-first-steps">Fork me on GitHub</a></span>
+    <h2>d3 first steps</h2>
+    <p class="back-home"><a href="./">Back to index</a></p>
+    <p>Based on <a href="https://www.youtube.com/watch?v=TR39nfAW1dw&index=3&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p">https://www.youtube.com/watch?v=TR39nfAW1dw&index=3&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p</a></p>
+    <script>
+      var canvas = d3.select('body')
+              .append('svg')
+              .attr('width', 500)
+              .attr('height', 500);
+      var circle = canvas.append('circle')
+              .attr('cx', canvas.attr('width') / 2)
+              .attr('cy', canvas.attr('height') / 2)
+              .attr('r', 50)
+              .attr('fill', 'red');
+      var rect = canvas.append('rect')
+              .attr('width', 200)
+              .attr('height', 100)
+              .attr('x', 10)
+              .attr('y', 15);
+      var line = canvas.append('line')
+              .attr('x1', 10)
+              .attr('y1', 300)
+              .attr('x2', 400)
+              .attr('y2', 420)
+              .attr('stroke', 'blue')
+              .attr('stroke-width', 12);
+    </script>
+  </body>
+</html>

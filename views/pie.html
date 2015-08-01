@@ -1,0 +1,6 @@
+<h4>Pie</h4>
+<emulate-web-socket data-data="data"></emulate-web-socket>
+<ul>
+  <li ng-repeat="channel in channelsDescription" ng-class="routeParams.channel == $index ? 'active' : ''"><a ng-href="#/pie/{{$index}}">{{channel.title}}</a></li>
+</ul>
+<pie-channel data-channel="data.channels[routeParams.channel]"></pie-channel>

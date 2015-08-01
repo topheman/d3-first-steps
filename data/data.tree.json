@@ -1,0 +1,75 @@
+{
+  "name": "root",
+  "children": [
+    {
+      "name": "Colors",
+      "value": 125,
+      "children": [
+        {
+          "name": "red",
+          "value" : 23
+        },
+        {
+          "name": "blue",
+          "value" : 45
+        },
+        {
+          "name": "orange",
+          "value" : 26
+        },
+        {
+          "name": "white",
+          "value" : 42
+        },
+        {
+          "name": "yellow",
+          "value" : 13
+        }
+      ]
+    },
+    {
+      "name": "Fruits",
+      "value":60,
+      "children": [
+        {
+          "name": "kiwi",
+          "value" : 12
+        },
+        {
+          "name": "orange",
+          "value" : 18
+        },
+        {
+          "name": "apple",
+          "value" : 30
+        },
+        {
+          "name": "grape",
+          "value" : 25
+        }
+      ]
+    },
+    {
+      "name": "Beatles",
+      "value":150,
+      "children": [
+        {
+          "name": "John",
+          "value" : 56
+        },
+        {
+          "name": "Paul",
+          "value" : 42
+        },
+        {
+          "name": "Georges",
+          "value" : 34
+        },
+        {
+          "name": "Ringo",
+          "value" : 53
+        }
+      ]
+    }
+  ]
+}
