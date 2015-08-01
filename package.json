@@ -1,4 +1,22 @@
 {
+  "name": "d3-first-steps",
+  "version": "1.0.0",
+  "description": "A bunch of d3 examples and resources",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/topheman/d3-first-steps.git"
+  },
+  "bugs": {
+    "url": "https://github.com/topheman/d3-first-steps/issues"
+  },
+  "keywords": [
+    "d3"
+  ],
+  "author": "Christophe Rosset <tophe@topheman.com> (http://labs.topheman.com/)",
+  "license": "MIT",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-connect": "^0.8.0",
